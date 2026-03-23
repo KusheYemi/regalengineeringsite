@@ -20,6 +20,10 @@ const { title, description, image } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+      .netlify-identity-widget, .netlify-identity-menu { z-index: 99999 !important; }
+      .netlify-identity-widget-overlay { z-index: 99998 !important; }
+    </style>
     <SEO title={title} description={description} image={image} />
   </head>
   <body>
@@ -39,10 +43,17 @@ const { title, description, image } = Astro.props;
             });
           }
         });
-        // Detect invite or recovery tokens in URL hash and open the widget
+        // Detect invite or recovery tokens in URL hash and open the widget after delay
         var hash = window.location.hash;
         if (hash && (hash.indexOf('invite_token=') !== -1 || hash.indexOf('recovery_token=') !== -1)) {
-          window.netlifyIdentity.open();
+          setTimeout(function() {
+            window.netlifyIdentity.open('signup');
+          }, 500);
+        }
+        if (hash && hash.indexOf('recovery_token=') !== -1) {
+          setTimeout(function() {
+            window.netlifyIdentity.open('login');
+          }, 500);
         }
       }
     </script>
