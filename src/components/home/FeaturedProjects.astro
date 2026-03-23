@@ -1,35 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import SectionLabel from '../ui/SectionLabel.astro';
 import ProjectCard from '../ui/ProjectCard.astro';
 import Button from '../ui/Button.astro';
 
-// Placeholder featured projects
-const featuredProjects = [
-  {
-    title: 'Lumley Beach Residential Survey',
-    category: 'land-surveying',
-    location: 'Lumley, Freetown',
-    shortDescription: 'Comprehensive boundary and topographic survey for a 2-acre coastal residential development site.',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
-    slug: 'lumley-beach-survey',
-  },
-  {
-    title: 'Victoria Park Mixed-Use Complex',
-    category: 'architectural-design',
-    location: 'Victoria Park, Freetown',
-    shortDescription: 'Full architectural concept and 3D rendering for a three-storey mixed-use commercial building.',
-    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80',
-    slug: 'victoria-park-complex',
-  },
-  {
-    title: 'Hill Station Estate Development',
-    category: 'integrated',
-    location: 'Hill Station, Freetown',
-    shortDescription: 'End-to-end survey and architectural design for a gated residential estate with 12 units.',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
-    slug: 'hill-station-estate',
-  },
-];
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .slice(0, 3);
 ---
 
 <section class="relative py-24 lg:py-32 bg-black">
@@ -52,7 +30,14 @@ const featuredProjects = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
       {featuredProjects.map((project, i) => (
         <div data-animate style={`animation-delay: ${(i + 1) * 150}ms; opacity: 0;`}>
-          <ProjectCard {...project} />
+          <ProjectCard
+            title={project.data.title}
+            category={project.data.category}
+            location={project.data.location}
+            shortDescription={project.data.shortDescription}
+            image={project.data.image}
+            slug={project.id}
+          />
         </div>
       ))}
     </div>

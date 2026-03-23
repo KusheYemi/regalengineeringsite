@@ -1,23 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
 import SectionLabel from '../ui/SectionLabel.astro';
 
-const testimonials = [
-  {
-    quote: 'Regal Engineering delivered our boundary survey ahead of schedule and with exceptional accuracy. Their drone technology gave us insights we didn\'t even know we needed. Highly recommended for any serious development project.',
-    name: 'Amara Conteh',
-    role: 'Property Developer, Freetown',
-  },
-  {
-    quote: 'The integrated survey-to-design package saved us weeks of coordination. One team, one vision, one flawless result. Our residential project went from concept to permit in record time.',
-    name: 'Ibrahim Kamara',
-    role: 'Director, Kamara Holdings Ltd',
-  },
-  {
-    quote: 'Their architectural renderings were stunning — they captured exactly what we envisioned. The attention to detail in both the survey data and the design work was truly impressive.',
-    name: 'Fatmata Sesay',
-    role: 'Homeowner, Hill Station',
-  },
-];
+const testimonials = await getCollection('testimonials');
 ---
 
 <section class="relative py-24 lg:py-32 bg-black-soft overflow-hidden">
@@ -42,15 +27,15 @@ const testimonials = [
           <!-- Gold quote mark -->
           <span class="block font-display text-5xl text-gold/30 leading-none mb-4" aria-hidden="true">&ldquo;</span>
           <blockquote class="text-warm-white/70 text-sm font-body leading-relaxed mb-8">
-            {testimonial.quote}
+            {testimonial.data.quote}
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 bg-gold/10 border border-gold/20 flex items-center justify-center">
-              <span class="font-display text-gold text-sm">{testimonial.name.charAt(0)}</span>
+              <span class="font-display text-gold text-sm">{testimonial.data.name.charAt(0)}</span>
             </div>
             <div>
-              <p class="text-warm-white text-sm font-body font-medium">{testimonial.name}</p>
-              <p class="text-gold-dim text-xs font-body">{testimonial.role}</p>
+              <p class="text-warm-white text-sm font-body font-medium">{testimonial.data.name}</p>
+              <p class="text-gold-dim text-xs font-body">{testimonial.data.role}</p>
             </div>
           </div>
         </div>

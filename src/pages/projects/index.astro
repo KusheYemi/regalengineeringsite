@@ -1,59 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../components/layout/Layout.astro';
-import SectionLabel from '../../components/ui/SectionLabel.astro';
 import GoldRule from '../../components/ui/GoldRule.astro';
 import ProjectCard from '../../components/ui/ProjectCard.astro';
 
-const projects = [
-  {
-    title: 'Lumley Beach Residential Survey',
-    category: 'land-surveying',
-    location: 'Lumley, Freetown',
-    shortDescription: 'Comprehensive boundary and topographic survey for a 2-acre coastal residential development site.',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
-    slug: 'lumley-beach-survey',
-  },
-  {
-    title: 'Victoria Park Mixed-Use Complex',
-    category: 'architectural-design',
-    location: 'Victoria Park, Freetown',
-    shortDescription: 'Full architectural concept and 3D rendering for a three-storey mixed-use commercial building.',
-    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80',
-    slug: 'victoria-park-complex',
-  },
-  {
-    title: 'Hill Station Estate Development',
-    category: 'integrated',
-    location: 'Hill Station, Freetown',
-    shortDescription: 'End-to-end survey and architectural design for a gated residential estate with 12 units.',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
-    slug: 'hill-station-estate',
-  },
-  {
-    title: 'Aberdeen Creek Commercial Survey',
-    category: 'land-surveying',
-    location: 'Aberdeen, Freetown',
-    shortDescription: 'Topographic and boundary survey for a waterfront commercial development project.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80',
-    slug: 'aberdeen-creek-survey',
-  },
-  {
-    title: 'Wilberforce Residence Design',
-    category: 'architectural-design',
-    location: 'Wilberforce, Freetown',
-    shortDescription: 'Modern 4-bedroom residential design with full 3D renderings and permit-ready drawings.',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-    slug: 'wilberforce-residence',
-  },
-  {
-    title: 'Grafton Heights Subdivision',
-    category: 'integrated',
-    location: 'Grafton, Freetown',
-    shortDescription: 'Land subdivision planning with integrated architectural design for a 20-lot residential development.',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
-    slug: 'grafton-heights',
-  },
-];
+const projects = await getCollection('projects');
 ---
 
 <Layout
@@ -92,7 +43,7 @@ const projects = [
         ))}
       </div>
 
-      <!-- Projects Grid — asymmetric -->
+      <!-- Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="projects-grid">
         {projects.map((project, i) => (
           <div
@@ -100,9 +51,16 @@ const projects = [
               'project-item',
               i === 0 ? 'md:col-span-2 lg:col-span-2' : '',
             ]}
-            data-category={project.category}
+            data-category={project.data.category}
           >
-            <ProjectCard {...project} />
+            <ProjectCard
+              title={project.data.title}
+              category={project.data.category}
+              location={project.data.location}
+              shortDescription={project.data.shortDescription}
+              image={project.data.image}
+              slug={project.id}
+            />
           </div>
         ))}
       </div>
@@ -123,7 +81,6 @@ const projects = [
     activeBtn.classList.remove('border-white/10', 'text-warm-white/60', 'hover:border-gold/40', 'hover:text-gold');
   }
 
-  // Set "All" active by default
   setActiveFilter(buttons[0]);
 
   buttons.forEach(btn => {
