@@ -1,0 +1,19 @@
+---
+interface Props {
+  label: string;
+  number?: string;
+}
+
+const { label, number } = Astro.props;
+---
+
+<div class="relative mb-6">
+  {number && (
+    <span class="absolute -top-8 -left-2 font-display text-[6rem] lg:text-[8rem] font-bold text-gold/[0.06] leading-none select-none pointer-events-none" aria-hidden="true">
+      {number}
+    </span>
+  )}
+  <span class="relative font-body text-xs tracking-[0.35em] uppercase text-gold">
+    {label}
+  </span>
+</div>

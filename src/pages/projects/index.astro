@@ -1,0 +1,144 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import SectionLabel from '../../components/ui/SectionLabel.astro';
+import GoldRule from '../../components/ui/GoldRule.astro';
+import ProjectCard from '../../components/ui/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Lumley Beach Residential Survey',
+    category: 'land-surveying',
+    location: 'Lumley, Freetown',
+    shortDescription: 'Comprehensive boundary and topographic survey for a 2-acre coastal residential development site.',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    slug: 'lumley-beach-survey',
+  },
+  {
+    title: 'Victoria Park Mixed-Use Complex',
+    category: 'architectural-design',
+    location: 'Victoria Park, Freetown',
+    shortDescription: 'Full architectural concept and 3D rendering for a three-storey mixed-use commercial building.',
+    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80',
+    slug: 'victoria-park-complex',
+  },
+  {
+    title: 'Hill Station Estate Development',
+    category: 'integrated',
+    location: 'Hill Station, Freetown',
+    shortDescription: 'End-to-end survey and architectural design for a gated residential estate with 12 units.',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    slug: 'hill-station-estate',
+  },
+  {
+    title: 'Aberdeen Creek Commercial Survey',
+    category: 'land-surveying',
+    location: 'Aberdeen, Freetown',
+    shortDescription: 'Topographic and boundary survey for a waterfront commercial development project.',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80',
+    slug: 'aberdeen-creek-survey',
+  },
+  {
+    title: 'Wilberforce Residence Design',
+    category: 'architectural-design',
+    location: 'Wilberforce, Freetown',
+    shortDescription: 'Modern 4-bedroom residential design with full 3D renderings and permit-ready drawings.',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+    slug: 'wilberforce-residence',
+  },
+  {
+    title: 'Grafton Heights Subdivision',
+    category: 'integrated',
+    location: 'Grafton, Freetown',
+    shortDescription: 'Land subdivision planning with integrated architectural design for a 20-lot residential development.',
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+    slug: 'grafton-heights',
+  },
+];
+---
+
+<Layout
+  title="Our Projects"
+  description="Browse our portfolio of land surveying and architectural design projects in Sierra Leone. A record of precision, creativity, and client confidence."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 bg-black">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center gap-2 text-xs font-body text-grey mb-8">
+        <a href="/" class="hover:text-gold transition-colors">Home</a>
+        <span class="text-gold-dim">/</span>
+        <span class="text-warm-white/60">Our Projects</span>
+      </div>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-warm-white mb-6">Our <span class="text-gold italic">Projects</span></h1>
+      <p class="text-warm-white/60 font-body text-lg max-w-2xl leading-relaxed">
+        A record of precision, creativity, and client confidence.
+      </p>
+    </div>
+  </section>
+
+  <GoldRule class="mx-auto" width="80%" />
+
+  <!-- Filter + Grid -->
+  <section class="py-16 lg:py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Filter Bar -->
+      <div class="flex flex-wrap gap-3 mb-12" id="filter-bar">
+        {['All', 'Land Surveying', 'Architectural Design', 'Integrated'].map((filter) => (
+          <button
+            class="px-5 py-2 text-xs tracking-[0.2em] uppercase font-body border transition-all duration-300 filter-btn"
+            data-filter={filter === 'All' ? 'all' : filter.toLowerCase().replace(' ', '-')}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      <!-- Projects Grid — asymmetric -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="projects-grid">
+        {projects.map((project, i) => (
+          <div
+            class:list={[
+              'project-item',
+              i === 0 ? 'md:col-span-2 lg:col-span-2' : '',
+            ]}
+            data-category={project.category}
+          >
+            <ProjectCard {...project} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.project-item');
+
+  function setActiveFilter(activeBtn: Element) {
+    buttons.forEach(btn => {
+      btn.classList.remove('border-gold', 'text-gold', 'bg-gold/10');
+      btn.classList.add('border-white/10', 'text-warm-white/60', 'hover:border-gold/40', 'hover:text-gold');
+    });
+    activeBtn.classList.add('border-gold', 'text-gold', 'bg-gold/10');
+    activeBtn.classList.remove('border-white/10', 'text-warm-white/60', 'hover:border-gold/40', 'hover:text-gold');
+  }
+
+  // Set "All" active by default
+  setActiveFilter(buttons[0]);
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      setActiveFilter(btn);
+
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        if (filter === 'all' || category === filter) {
+          (item as HTMLElement).style.display = '';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,187 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import GoldRule from '../../components/ui/GoldRule.astro';
+import Button from '../../components/ui/Button.astro';
+
+// Placeholder project data (will be replaced by content collections)
+const projectsData: Record<string, any> = {
+  'lumley-beach-survey': {
+    title: 'Lumley Beach Residential Survey',
+    category: 'land-surveying',
+    location: 'Lumley, Freetown',
+    year: 2024,
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80',
+    shortDescription: 'Comprehensive boundary and topographic survey for a 2-acre coastal residential development site.',
+    challenge: 'The client needed precise boundary delineation on a coastal site with complex terrain variations and proximity to protected waterfront zones. Previous survey records were outdated and conflicting.',
+    approach: 'We deployed our drone fleet for high-resolution aerial mapping combined with ground-level GPS surveying. Our team cross-referenced historical land records with current satellite imagery to resolve boundary discrepancies.',
+    outcome: 'Delivered a comprehensive survey package including topographic maps, boundary certificates, and a 3D terrain model. The client secured their development permit within two weeks of our report submission.',
+    services: ['Boundary Survey', 'Topographic Survey', 'Drone Mapping', 'Legal Documentation'],
+  },
+  'victoria-park-complex': {
+    title: 'Victoria Park Mixed-Use Complex',
+    category: 'architectural-design',
+    location: 'Victoria Park, Freetown',
+    year: 2024,
+    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=80',
+    shortDescription: 'Full architectural concept and 3D rendering for a three-storey mixed-use commercial building.',
+    challenge: 'Design a mixed-use building that maximises commercial space on the ground floor while providing attractive residential units above, all within strict height and setback regulations.',
+    approach: 'Our design team created multiple conceptual options, using 3D modelling to test natural light, ventilation, and traffic flow. We worked closely with the client to refine the preferred option into detailed permit drawings.',
+    outcome: 'The final design features retail frontage on the ground floor, office space on the second, and four premium apartments on the third. The client described the 3D renderings as "exactly what I imagined, but better."',
+    services: ['Conceptual Design', '3D Renderings', 'Floor Plans', 'Permit Drawings'],
+  },
+  'hill-station-estate': {
+    title: 'Hill Station Estate Development',
+    category: 'integrated',
+    location: 'Hill Station, Freetown',
+    year: 2024,
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
+    shortDescription: 'End-to-end survey and architectural design for a gated residential estate with 12 units.',
+    challenge: 'A complex hillside site requiring careful topographic analysis before any design work could begin. The developer needed both survey and design services coordinated under one roof to meet an aggressive timeline.',
+    approach: 'We conducted the topographic survey first, feeding elevation data directly into our architectural design process. This integrated approach eliminated the typical delay between survey completion and design commencement.',
+    outcome: 'Delivered complete survey documentation and architectural plans for 12 residential units, community spaces, and access roads — three weeks ahead of the original schedule.',
+    services: ['Topographic Survey', 'Boundary Survey', 'Subdivision Planning', 'Architectural Design', '3D Renderings'],
+  },
+  'aberdeen-creek-survey': {
+    title: 'Aberdeen Creek Commercial Survey',
+    category: 'land-surveying',
+    location: 'Aberdeen, Freetown',
+    year: 2023,
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80',
+    shortDescription: 'Topographic and boundary survey for a waterfront commercial development project.',
+    challenge: 'Surveying a waterfront site with tidal variations, requiring coordination with maritime boundaries and environmental regulations.',
+    approach: 'Combined traditional ground surveys with drone-based photogrammetry to capture both the land and shoreline characteristics. Coordinated with environmental authorities for compliance clearance.',
+    outcome: 'Comprehensive survey package that enabled the client to proceed with a marina and commercial centre development, fully compliant with maritime and environmental regulations.',
+    services: ['Boundary Survey', 'Topographic Survey', 'Drone Mapping'],
+  },
+  'wilberforce-residence': {
+    title: 'Wilberforce Residence Design',
+    category: 'architectural-design',
+    location: 'Wilberforce, Freetown',
+    year: 2024,
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    shortDescription: 'Modern 4-bedroom residential design with full 3D renderings and permit-ready drawings.',
+    challenge: 'Design a contemporary family home that maximises natural ventilation and views while respecting the neighbourhood character and local building codes.',
+    approach: 'Started with site analysis and sun-path studies, then developed a design that uses cross-ventilation and shading strategies appropriate for the Freetown climate. Multiple 3D rendering iterations ensured the client could visualise every detail.',
+    outcome: 'A stunning modern residence design that the client called "the most beautiful house on the hill." Permit drawings were approved on first submission.',
+    services: ['Conceptual Design', '3D Renderings', 'Floor Plans', 'Site Plans', 'Permit Drawings'],
+  },
+  'grafton-heights': {
+    title: 'Grafton Heights Subdivision',
+    category: 'integrated',
+    location: 'Grafton, Freetown',
+    year: 2023,
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80',
+    shortDescription: 'Land subdivision planning with integrated architectural design for a 20-lot residential development.',
+    challenge: 'Transform a large undeveloped parcel into a viable residential subdivision with efficient lot layouts, access roads, and shared amenities.',
+    approach: 'Our survey team mapped the entire site, identifying optimal lot orientations for views and drainage. The design team then created architectural guidelines and model home designs to give buyers a clear vision.',
+    outcome: '20 well-designed lots with infrastructure plans, three model home designs, and a community park layout. The developer sold 60% of lots within the first month of marketing.',
+    services: ['Topographic Survey', 'Subdivision Planning', 'Architectural Design', 'Site Planning'],
+  },
+};
+
+const categoryLabels: Record<string, string> = {
+  'land-surveying': 'Land Surveying',
+  'architectural-design': 'Architectural Design',
+  'integrated': 'Integrated',
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'lumley-beach-survey' } },
+    { params: { slug: 'victoria-park-complex' } },
+    { params: { slug: 'hill-station-estate' } },
+    { params: { slug: 'aberdeen-creek-survey' } },
+    { params: { slug: 'wilberforce-residence' } },
+    { params: { slug: 'grafton-heights' } },
+  ];
+}
+
+const { slug } = Astro.params;
+const project = projectsData[slug!];
+
+if (!project) {
+  return Astro.redirect('/projects');
+}
+---
+
+<Layout
+  title={project.title}
+  description={project.shortDescription}
+  image={project.image}
+>
+  <!-- Hero Image -->
+  <section class="relative pt-20">
+    <div class="relative h-[50vh] lg:h-[60vh] overflow-hidden">
+      <img
+        src={project.image}
+        alt={project.title}
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- Project Content -->
+  <section class="relative bg-black -mt-32 pt-8">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-xs font-body text-grey mb-8 relative z-10">
+        <a href="/" class="hover:text-gold transition-colors">Home</a>
+        <span class="text-gold-dim">/</span>
+        <a href="/projects" class="hover:text-gold transition-colors">Projects</a>
+        <span class="text-gold-dim">/</span>
+        <span class="text-warm-white/60">{project.title}</span>
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-4 mb-6 relative z-10">
+        <span class="px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-body border border-gold/50 text-gold">
+          {categoryLabels[project.category]}
+        </span>
+        <span class="text-grey text-sm font-body">{project.location}</span>
+        <span class="text-grey text-sm font-body">{project.year}</span>
+      </div>
+
+      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl text-warm-white mb-8">{project.title}</h1>
+      <p class="text-warm-white/70 font-body text-lg leading-relaxed mb-12">{project.shortDescription}</p>
+
+      <GoldRule width="100%" class="mb-12" />
+
+      <!-- Challenge / Approach / Outcome -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        {[
+          { label: 'The Challenge', content: project.challenge },
+          { label: 'Our Approach', content: project.approach },
+          { label: 'The Outcome', content: project.outcome },
+        ].map((section, i) => (
+          <div class="relative" data-animate style={`animation-delay: ${i * 150}ms; opacity: 0;`}>
+            <span class="text-gold text-xs tracking-[0.2em] uppercase font-body block mb-3">{section.label}</span>
+            <p class="text-warm-white/60 font-body text-sm leading-relaxed">{section.content}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Services Used -->
+      <div class="mb-16" data-animate>
+        <span class="text-gold text-xs tracking-[0.2em] uppercase font-body block mb-4">Services Used</span>
+        <div class="flex flex-wrap gap-2">
+          {project.services.map((service: string) => (
+            <span class="px-4 py-2 text-xs font-body text-warm-white/60 border border-white/10 bg-black-soft">
+              {service}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Back link -->
+      <div class="pb-20">
+        <Button href="/projects" variant="ghost">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+          </svg>
+          Back to Projects
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

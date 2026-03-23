@@ -1,0 +1,145 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="space-y-6"
+  id="contact-form"
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <p hidden><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+  <!-- Name -->
+  <div>
+    <label for="name" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Full Name <span class="text-gold">*</span>
+    </label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      required
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 placeholder:text-grey/50"
+      placeholder="Your full name"
+    />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Email Address <span class="text-gold">*</span>
+    </label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 placeholder:text-grey/50"
+      placeholder="you@example.com"
+    />
+  </div>
+
+  <!-- Phone -->
+  <div>
+    <label for="phone" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Phone Number
+    </label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 placeholder:text-grey/50"
+      placeholder="+232 XX XXX XXX"
+    />
+  </div>
+
+  <!-- Service of Interest -->
+  <div>
+    <label for="service" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Service of Interest
+    </label>
+    <select
+      id="service"
+      name="service"
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 appearance-none"
+      style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23c9a84c%22 stroke-width=%222%22><path d=%22m6 9 6 6 6-6%22/></svg>'); background-repeat: no-repeat; background-position: right 16px center;"
+    >
+      <option value="">Select a service...</option>
+      <option value="land-surveying">Land Surveying</option>
+      <option value="architectural-design">Architectural Design</option>
+      <option value="integrated">Integrated Package</option>
+      <option value="general">General Enquiry</option>
+    </select>
+  </div>
+
+  <!-- Project Location -->
+  <div>
+    <label for="location" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Project Location
+    </label>
+    <input
+      type="text"
+      id="location"
+      name="location"
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 placeholder:text-grey/50"
+      placeholder="e.g., Freetown, Western Area"
+    />
+  </div>
+
+  <!-- Message -->
+  <div>
+    <label for="message" class="block text-warm-white/80 text-sm font-body mb-2 tracking-wide">
+      Message / Project Brief <span class="text-gold">*</span>
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      class="w-full bg-black-mid border border-white/10 px-4 py-3 text-warm-white font-body text-sm focus:border-gold focus:outline-none transition-colors duration-300 placeholder:text-grey/50 resize-vertical"
+      placeholder="Tell us about your project..."
+    ></textarea>
+  </div>
+
+  <!-- Submit -->
+  <Button type="submit" variant="filled" class="w-full sm:w-auto">
+    Send Enquiry
+  </Button>
+</form>
+
+<!-- Success message (hidden by default) -->
+<div id="form-success" class="hidden text-center py-16">
+  <div class="w-16 h-16 mx-auto mb-6 border border-gold flex items-center justify-center">
+    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+    </svg>
+  </div>
+  <h3 class="font-display text-2xl text-warm-white mb-3">Thank You</h3>
+  <p class="text-warm-white/60 font-body text-sm">We'll be in touch within 1&ndash;2 business days.</p>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const success = document.getElementById('form-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as any).toString(),
+      });
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+    } catch {
+      alert('Something went wrong. Please try again or contact us directly.');
+    }
+  });
+</script>

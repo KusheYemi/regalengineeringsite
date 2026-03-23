@@ -1,0 +1,24 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'filled' | 'ghost';
+  class?: string;
+  type?: 'button' | 'submit';
+}
+
+const { href, variant = 'filled', class: className = '', type } = Astro.props;
+
+const baseClasses = 'inline-flex items-center justify-center px-8 py-3.5 text-sm font-body font-medium tracking-[0.15em] uppercase transition-all duration-400 relative overflow-hidden group';
+
+const variantClasses = {
+  filled: 'bg-gold text-black hover:bg-gold-light',
+  ghost: 'border border-gold/60 text-gold hover:border-gold hover:bg-gold/10',
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class={classes} type={!href ? type : undefined}>
+  <span class="relative z-10"><slot /></span>
+</Tag>

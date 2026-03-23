@@ -1,0 +1,66 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+
+const services = [
+  {
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" /></svg>`,
+    title: 'Land Surveying',
+    description: 'Precise boundary, topographic, and construction surveys using drone and GIS technology.',
+    href: '/services#land-surveying',
+  },
+  {
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" /></svg>`,
+    title: 'Architectural Design',
+    description: 'Conceptual designs, 3D renderings, floor plans, and permit-ready drawings.',
+    href: '/services#architectural-design',
+  },
+  {
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>`,
+    title: 'Integrated Packages',
+    description: 'One firm, two disciplines. Survey and design in a single streamlined package.',
+    href: '/services#integrated',
+  },
+];
+---
+
+<section class="relative py-24 lg:py-32 bg-black-soft">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div data-animate>
+      <SectionLabel label="What We Do" number="01" />
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-warm-white mt-4 mb-16">
+        Services built on <span class="text-gold italic">precision</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+      {services.map((service, i) => (
+        <a
+          href={service.href}
+          class="group relative bg-black-mid border border-white/5 p-8 lg:p-10 transition-all duration-500 hover:border-gold/40 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(201,168,76,0.06)]"
+          data-animate
+          style={`animation-delay: ${(i + 1) * 150}ms; opacity: 0;`}
+        >
+          {/* Gold corner accent */}
+          <div class="absolute top-0 right-0 w-8 h-8 overflow-hidden">
+            <div class="absolute top-0 right-0 w-px h-8 bg-gold/30 group-hover:bg-gold transition-colors duration-500"></div>
+            <div class="absolute top-0 right-0 w-8 h-px bg-gold/30 group-hover:bg-gold transition-colors duration-500"></div>
+          </div>
+
+          <div class="text-gold mb-6" set:html={service.icon} />
+          <h3 class="font-display text-xl text-warm-white mb-3 group-hover:text-gold transition-colors duration-300">
+            {service.title}
+          </h3>
+          <p class="text-warm-white/60 text-sm font-body leading-relaxed mb-6">
+            {service.description}
+          </p>
+          <span class="inline-flex items-center gap-2 text-gold text-xs tracking-[0.15em] uppercase font-body">
+            Learn More
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+            </svg>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

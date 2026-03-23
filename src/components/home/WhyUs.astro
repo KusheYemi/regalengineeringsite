@@ -1,0 +1,59 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import GoldRule from '../ui/GoldRule.astro';
+
+const differentiators = [
+  {
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>`,
+    title: 'Drone-Powered Surveys',
+    description: 'High-accuracy aerial data with proprietary drone equipment for comprehensive site analysis.',
+  },
+  {
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>`,
+    title: 'Integrated Services',
+    description: 'Survey and design in one streamlined package — zero coordination overhead.',
+  },
+  {
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-2.25-1.313M21 7.5v2.25m0-2.25-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3 2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75 2.25-1.313M12 21.75V19.5m0 2.25-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25" /></svg>`,
+    title: 'Custom Design Packages',
+    description: 'Architectural solutions tailored to your exact vision, from concept to permit drawings.',
+  },
+  {
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0 1 15 0Z" /></svg>`,
+    title: 'Local Expertise',
+    description: 'Deep knowledge of Sierra Leone\'s land regulations and terrain landscape.',
+  },
+];
+---
+
+<section class="relative py-24 lg:py-32 bg-black">
+  <!-- Diagonal decorative element -->
+  <div class="absolute top-0 left-[10%] w-px h-full bg-gradient-to-b from-gold/0 via-gold/10 to-gold/0 hidden lg:block" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-16" data-animate>
+      <SectionLabel label="Our Edge" number="02" />
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-warm-white mt-4">
+        Why clients choose <span class="text-gold italic">Regal</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {differentiators.map((item, i) => (
+        <div
+          class="relative text-center group"
+          data-animate
+          style={`animation-delay: ${(i + 1) * 120}ms; opacity: 0;`}
+        >
+          <div class="w-14 h-14 mx-auto mb-6 border border-gold/30 flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/5 transition-all duration-500 rotate-45">
+            <div class="-rotate-45" set:html={item.icon} />
+          </div>
+          <h3 class="font-display text-lg text-warm-white mb-3">{item.title}</h3>
+          <p class="text-warm-white/50 text-sm font-body leading-relaxed">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <GoldRule class="mt-24 mx-auto" width="60%" />
+</section>

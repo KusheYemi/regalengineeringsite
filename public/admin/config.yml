@@ -1,0 +1,99 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://regalengineering.com
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options: ["land-surveying", "architectural-design", "integrated"],
+        }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Year", name: "year", widget: "number" }
+      - {
+          label: "Featured",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+        }
+      - { label: "Cover Image", name: "image", widget: "image" }
+      - {
+          label: "Short Description",
+          name: "shortDescription",
+          widget: "string",
+        }
+      - { label: "Challenge", name: "challenge", widget: "text" }
+      - { label: "Approach", name: "approach", widget: "text" }
+      - { label: "Outcome", name: "outcome", widget: "text" }
+      - { label: "Services Used", name: "services", widget: "list" }
+
+  - name: "people"
+    label: "Our People"
+    folder: "src/content/people"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Job Title", name: "title", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number" }
+      - { label: "Photo", name: "photo", widget: "image" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - { label: "Expertise Tags", name: "expertise", widget: "list" }
+      - {
+          label: "LinkedIn URL",
+          name: "linkedin",
+          widget: "string",
+          required: false,
+        }
+
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Client Name", name: "name", widget: "string" }
+      - { label: "Role / Company", name: "role", widget: "string" }
+      - { label: "Quote", name: "quote", widget: "text" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General"
+        name: "general"
+        file: "src/content/settings/general.json"
+        fields:
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - {
+              label: "Facebook URL",
+              name: "facebook",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "LinkedIn URL",
+              name: "linkedin",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Instagram URL",
+              name: "instagram",
+              widget: "string",
+              required: false,
+            }

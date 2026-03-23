@@ -1,0 +1,128 @@
+---
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/projects', label: 'Our Projects' },
+  { href: '/people', label: 'Our People' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  id="site-header"
+>
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-md border-b border-white/5"></div>
+  <nav class="relative max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-20">
+    <!-- Logo -->
+    <a href="/" class="relative z-10 flex items-center gap-3 group">
+      <div class="w-10 h-10 border border-gold flex items-center justify-center relative overflow-hidden">
+        <span class="font-display text-gold text-xl font-bold tracking-tight">R</span>
+        <div class="absolute inset-0 bg-gold/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+      </div>
+      <div class="hidden sm:block">
+        <span class="font-display text-warm-white text-lg tracking-wide">Regal</span>
+        <span class="block text-[10px] tracking-[0.25em] uppercase text-gold-dim font-body">Engineering & Design</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden lg:flex items-center gap-8">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'relative font-body text-sm tracking-wide uppercase py-2 transition-colors duration-300',
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? 'text-gold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gold'
+                : 'text-warm-white/70 hover:text-gold',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="lg:hidden relative z-10 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+      id="menu-toggle"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      <span class="w-6 h-px bg-warm-white transition-all duration-300 origin-center" id="bar1"></span>
+      <span class="w-6 h-px bg-warm-white transition-all duration-300" id="bar2"></span>
+      <span class="w-4 h-px bg-gold transition-all duration-300 origin-center" id="bar3"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    class="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500"
+    id="mobile-menu"
+  >
+    <!-- Decorative diagonal line -->
+    <div class="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-gold/0 via-gold/20 to-gold/0 rotate-12 translate-x-20"></div>
+
+    <nav class="flex flex-col items-center gap-6">
+      {navLinks.map((link, i) => (
+        <a
+          href={link.href}
+          class:list={[
+            'font-display text-3xl tracking-wide transition-all duration-300 mobile-nav-link',
+            currentPath === link.href ? 'text-gold' : 'text-warm-white/60 hover:text-gold',
+          ]}
+          style={`transition-delay: ${i * 80}ms`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="absolute bottom-12 flex flex-col items-center gap-2">
+      <div class="w-12 h-px bg-gold/30"></div>
+      <span class="text-xs tracking-[0.3em] uppercase text-gold-dim font-body">Precision. Design. Vision.</span>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  let isOpen = false;
+
+  toggle?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+
+    if (isOpen) {
+      menu?.classList.remove('opacity-0', 'pointer-events-none');
+      menu?.classList.add('opacity-100', 'pointer-events-auto');
+      bar1?.classList.add('rotate-45', 'translate-y-[4px]');
+      bar2?.classList.add('opacity-0');
+      bar3?.classList.add('-rotate-45', '-translate-y-[4px]', 'w-6');
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu?.classList.add('opacity-0', 'pointer-events-none');
+      menu?.classList.remove('opacity-100', 'pointer-events-auto');
+      bar1?.classList.remove('rotate-45', 'translate-y-[4px]');
+      bar2?.classList.remove('opacity-0');
+      bar3?.classList.remove('-rotate-45', '-translate-y-[4px]', 'w-6');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close menu on link click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (isOpen) toggle?.click();
+    });
+  });
+</script>

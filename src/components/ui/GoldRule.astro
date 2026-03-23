@@ -1,0 +1,14 @@
+---
+interface Props {
+  class?: string;
+  width?: string;
+}
+
+const { class: className = '', width = '100%' } = Astro.props;
+---
+
+<div
+  class:list={['h-px', className]}
+  style={`width: ${width}; background: linear-gradient(90deg, transparent, var(--color-gold), transparent);`}
+  role="separator"
+></div>

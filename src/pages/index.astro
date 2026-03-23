@@ -1,0 +1,55 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import ServicesSnapshot from '../components/home/ServicesSnapshot.astro';
+import WhyUs from '../components/home/WhyUs.astro';
+import Stats from '../components/home/Stats.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<Layout
+  title="Home"
+  description="Regal Engineering & Design Solutions — Integrated land surveying and architectural design services in Freetown, Sierra Leone. Precision. Design. Vision."
+>
+  <Hero />
+  <ServicesSnapshot />
+  <WhyUs />
+  <Stats />
+  <FeaturedProjects />
+  <Testimonials />
+
+  <!-- CTA Banner -->
+  <section class="relative py-20 lg:py-24 bg-black">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center" data-animate>
+      <div class="border border-gold/20 bg-black-soft p-12 lg:p-16 relative">
+        <!-- Corner accents -->
+        <div class="absolute top-0 left-0 w-6 h-6">
+          <div class="absolute top-0 left-0 w-6 h-px bg-gold"></div>
+          <div class="absolute top-0 left-0 w-px h-6 bg-gold"></div>
+        </div>
+        <div class="absolute top-0 right-0 w-6 h-6">
+          <div class="absolute top-0 right-0 w-6 h-px bg-gold"></div>
+          <div class="absolute top-0 right-0 w-px h-6 bg-gold"></div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-6 h-6">
+          <div class="absolute bottom-0 left-0 w-6 h-px bg-gold"></div>
+          <div class="absolute bottom-0 left-0 w-px h-6 bg-gold"></div>
+        </div>
+        <div class="absolute bottom-0 right-0 w-6 h-6">
+          <div class="absolute bottom-0 right-0 w-6 h-px bg-gold"></div>
+          <div class="absolute bottom-0 right-0 w-px h-6 bg-gold"></div>
+        </div>
+
+        <h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-warm-white mb-4">
+          Ready to bring your project to <span class="text-gold italic">life</span>?
+        </h2>
+        <p class="text-warm-white/50 font-body text-sm mb-8 max-w-lg mx-auto">
+          Whether you need a precise land survey or a complete architectural design, our team is ready to deliver.
+        </p>
+        <Button href="/contact" variant="filled">Get In Touch</Button>
+      </div>
+    </div>
+  </section>
+</Layout>

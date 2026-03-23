@@ -1,0 +1,33 @@
+---
+const stats = [
+  { value: '50+', label: 'Projects Completed' },
+  { value: '3', label: 'Service Categories' },
+  { value: '100%', label: 'Client Satisfaction' },
+  { value: '2', label: 'Expert Disciplines' },
+];
+---
+
+<section class="relative py-20 bg-black-soft overflow-hidden">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true">
+    <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, var(--color-gold) 0, var(--color-gold) 1px, transparent 1px, transparent 80px), repeating-linear-gradient(0deg, var(--color-gold) 0, var(--color-gold) 1px, transparent 1px, transparent 80px);"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
+      {stats.map((stat, i) => (
+        <div
+          class="text-center py-8 relative"
+          data-animate
+          style={`animation-delay: ${i * 100}ms; opacity: 0;`}
+        >
+          {i > 0 && (
+            <div class="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gold/20"></div>
+          )}
+          <span class="block font-display text-4xl md:text-5xl lg:text-6xl text-gold font-light">{stat.value}</span>
+          <span class="block mt-2 text-warm-white/50 text-xs tracking-[0.2em] uppercase font-body">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

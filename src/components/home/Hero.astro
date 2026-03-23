@@ -1,0 +1,58 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden">
+  <!-- Background image with overlay -->
+  <div class="absolute inset-0">
+    <img
+      src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+      alt="Modern architectural structure"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
+  </div>
+
+  <!-- Diagonal gold accent -->
+  <div class="absolute top-0 right-[15%] w-px h-full bg-gradient-to-b from-gold/0 via-gold/20 to-gold/0 rotate-12 hidden lg:block" aria-hidden="true"></div>
+  <div class="absolute top-[20%] right-[12%] w-px h-[30%] bg-gold/15 rotate-[25deg] hidden lg:block" aria-hidden="true"></div>
+
+  <!-- Gold geometric element -->
+  <div class="absolute bottom-[15%] right-[8%] w-32 h-32 border border-gold/10 rotate-45 hidden lg:block" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-20">
+    <div class="max-w-3xl">
+      <!-- Label -->
+      <div class="flex items-center gap-4 mb-8 animate-fade-in">
+        <div class="w-12 h-px bg-gold"></div>
+        <span class="text-gold text-xs tracking-[0.35em] uppercase font-body">Regal Engineering & Design Solutions</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-warm-white leading-[0.95] mb-8 animate-slide-up">
+        <span class="block">Precision.</span>
+        <span class="block text-gold mt-2">Design.</span>
+        <span class="block mt-2">Vision.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-warm-white/70 text-lg md:text-xl font-body max-w-xl leading-relaxed mb-10 animate-slide-up delay-200" style="opacity:0;">
+        Integrated land surveying and architectural design services in Sierra Leone
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 animate-slide-up delay-300" style="opacity:0;">
+        <Button href="/services" variant="filled">Explore Our Services</Button>
+        <Button href="/projects" variant="ghost">View Our Projects</Button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in delay-600" style="opacity:0;">
+    <span class="text-gold-dim text-[10px] tracking-[0.3em] uppercase font-body">Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-gold to-transparent"></div>
+  </div>
+</section>

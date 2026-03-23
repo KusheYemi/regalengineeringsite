@@ -1,0 +1,60 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import ProjectCard from '../ui/ProjectCard.astro';
+import Button from '../ui/Button.astro';
+
+// Placeholder featured projects
+const featuredProjects = [
+  {
+    title: 'Lumley Beach Residential Survey',
+    category: 'land-surveying',
+    location: 'Lumley, Freetown',
+    shortDescription: 'Comprehensive boundary and topographic survey for a 2-acre coastal residential development site.',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    slug: 'lumley-beach-survey',
+  },
+  {
+    title: 'Victoria Park Mixed-Use Complex',
+    category: 'architectural-design',
+    location: 'Victoria Park, Freetown',
+    shortDescription: 'Full architectural concept and 3D rendering for a three-storey mixed-use commercial building.',
+    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80',
+    slug: 'victoria-park-complex',
+  },
+  {
+    title: 'Hill Station Estate Development',
+    category: 'integrated',
+    location: 'Hill Station, Freetown',
+    shortDescription: 'End-to-end survey and architectural design for a gated residential estate with 12 units.',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    slug: 'hill-station-estate',
+  },
+];
+---
+
+<section class="relative py-24 lg:py-32 bg-black">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16" data-animate>
+      <div>
+        <SectionLabel label="Our Work" number="03" />
+        <h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-warm-white mt-4">
+          Featured <span class="text-gold italic">projects</span>
+        </h2>
+      </div>
+      <Button href="/projects" variant="ghost" class="self-start md:self-auto">
+        See All Projects
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+        </svg>
+      </Button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {featuredProjects.map((project, i) => (
+        <div data-animate style={`animation-delay: ${(i + 1) * 150}ms; opacity: 0;`}>
+          <ProjectCard {...project} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
