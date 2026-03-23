@@ -19,6 +19,7 @@ const { title, description, image } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <SEO title={title} description={description} image={image} />
   </head>
   <body>
@@ -27,6 +28,19 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+
+    <!-- Netlify Identity redirect -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user: any) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
 
     <!-- Scroll animation observer -->
     <script>
