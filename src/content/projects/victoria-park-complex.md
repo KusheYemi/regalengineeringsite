@@ -3,7 +3,7 @@ title: Victoria Park Mixed-Use Complex
 category: architectural-design
 location: Victoria Park, Freetown
 year: 2025
-featured: true
+featured: false
 image: /images/placeholders/project-2.jpg
 shortDescription: Full architectural concept and 3D rendering for a three-storey
   mixed-use commercial building.
