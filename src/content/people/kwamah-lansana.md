@@ -2,7 +2,7 @@
 name: Kwamah Lansana
 title: Co-Owner & Principal Engineer
 order: 1
-photo: /images/uploads/integems-056.jpg
+photo: /images/uploads/kg_lansana.jpg
 bio: Kwamah brings deep expertise in land surveying and property development,
   with a focus on precision-driven solutions for complex terrain. His leadership
   ensures every project meets the highest standards of accuracy.
